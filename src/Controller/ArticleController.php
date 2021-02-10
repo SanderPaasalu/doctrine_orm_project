@@ -10,14 +10,14 @@ class ArticleController extends Controller
 {
     public function view(Request $request, Response $response, $args = [])
     {
-    	$article = $this->ci->get('db')->getRepository('App\Entity\Article')->findOneBy([
-    		'slug' => $args['slug']
-    	]); 
+ 		$qb = $this->ci->get('db')->createQueryBuilder();
 
-    	if (!$article){
-    		throw new HttpNotFoundException($request);
-    	}
-    	
+ 		$qb->select('a')->from('App\Entity\Article', 'a')->where('a.slug = :slug')->setParameter('slug', $args['slug']);
+
+ 		$query = $qb->getQuery();
+
+ 		$article =$query->getSingleResult();
+
         return $this->renderPage($response, 'article.html', [
         	'article' => $article
         ]);
@@ -27,6 +27,21 @@ class ArticleController extends Controller
     {
     	$article = $this->ci->get('db')->find('App\Entity\Article', 1);
     	return $this->renderPage($response, 'article.html', [
+        	'article' => $article
+        ]);
+    }
+
+        public function viewRepo(Request $request, Response $response, $args = [])
+    {
+    	$article = $this->ci->get('db')->getRepository('App\Entity\Article')->findOneBy([
+    		'slug' => $args['slug']
+    	]); 
+
+    	if (!$article){
+    		throw new HttpNotFoundException($request);
+    	}
+    	
+        return $this->renderPage($response, 'article.html', [
         	'article' => $article
         ]);
     }
