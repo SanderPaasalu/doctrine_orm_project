@@ -9,29 +9,29 @@ use DateTime;
 */
 class Article {
 	/**
-	* @Column(type='integer')
+	* @Column(type="integer")
 	* @Id
 	* @GeneratedValue
 	*/
 	private $id;
 	/**
-	* @Column(type='string')
+	* @Column(type="string")
 	*/
 	private $name;
 	/**
-	* @Column(type='string', unique=true)
+	* @Column(type="string", unique=true)
 	*/
 	private $slug;
 		/**
-	* @Column(type='string')
+	* @Column(type="string")
 	*/
 	private $image;
 		/**
-	* @Column(type='text')
+	* @Column(type="text")
 	*/
 	private $body;
 		/**
-	* @Column(type='date')
+	* @Column(type="datetime")
 	*/
 	private $published;
 
@@ -66,14 +66,14 @@ class Article {
 	public function getBody(){
 		return $this->body;
 	}
-	public function setId($value){
+	public function setBody($value){
 		$this->body = $value;
 	}
 	
 	public function getPublished(){
 		return $this->published;
 	}
-	public function setId(DateTime $value = null){
+	public function setPublished(DateTime $value = null){
 		$this->published = $value;
 	}
 	
