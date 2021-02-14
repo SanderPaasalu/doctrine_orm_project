@@ -59,7 +59,7 @@ class Article {
 	public function getImage(){
 		return $this->image;
 	}
-	public function set($value){
+	public function setImage($value){
 		$this->image = $value;
 	}
 	
