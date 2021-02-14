@@ -43,4 +43,26 @@ class AdminController extends Controller
             'article' => $article
         ]);
     }
+
+    public function create(Request $request, Response $response, $args = [])
+    {
+        $article = new Article;
+
+        if ($request->isPost()){
+            $article->setName($request->getParam('name'));
+            $article->setSlug($request->getParam('slug'));
+            $article->setImage($request->getParam('image'));
+            $article->setBody($request->getParam('body'));
+            $article->setPublished(new \DateTime);
+
+            $this->ci->get('db')->persist($article);
+            $this->ci->get('db')->flush();
+
+            return $response->withRedirect('/admin');
+        }
+
+        return $this->renderPage($response, 'admin/create.html', [
+            'article' => $article
+        ]);
+    }
 }
