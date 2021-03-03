@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
-class AdminController extends Controller
+class ArticleAdminController extends Controller
 {
     public function view(Request $request, Response $response)
     {
@@ -16,8 +16,33 @@ class AdminController extends Controller
             'published' => 'DESC'
         ]);
 
-        return $this->renderPage($response, 'admin/view.html', [
+        
+
+        return $this->renderPage($response, 'admin/article/view.html', [
             'articles' => $articles
+        ]);
+    }
+
+    public function create(Request $request, Response $response, $args = [])
+    {
+        $article = new Article;
+
+
+        if($request->isPost()){
+            $article->setName($request->getParam('name'));
+            $article->setSlug($request->getParam('slug'));
+            $article->setImage($request->getParam('image'));
+            $article->setBody($request->getParam('body'));
+            $article->setPublished(new \DateTime);
+
+            $this->ci->get('db')->persist($article);
+            $this->ci->get('db')->flush();
+
+            return $response->withRedirect('/admin/article');
+        }
+
+        return $this->renderPage($response, 'admin/article/create.html', [
+            'article' => $article
         ]);
     }
 
@@ -29,12 +54,13 @@ class AdminController extends Controller
             throw new HttpNotFoundException($request);
         }
 
-        if ($request->isPost()){
+        if($request->isPost()){
 
             if($request->getParam('action') == 'delete'){
                 $this->ci->get('db')->remove($article);
                 $this->ci->get('db')->flush();
-                return $response->withRedirect('/admin');
+
+                return $response->withRedirect('/admin/article/edit');
             }
 
             $article->setName($request->getParam('name'));
@@ -42,7 +68,8 @@ class AdminController extends Controller
             $article->setImage($request->getParam('image'));
             $article->setBody($request->getParam('body'));
 
-            $article->setAuthor($this->ci->get('db')->find('App\Entity\Author', $request->getParam('author'))
+            $article->setAuthor(
+                $this->ci->get('db')->find('App\Entity\Author', $request->getParam('author'))
             );
 
             $this->ci->get('db')->persist($article);
@@ -53,35 +80,10 @@ class AdminController extends Controller
             'name' => 'ASC'
         ]);
 
-        return $this->renderPage($response, 'admin/edit.html', [
+
+        return $this->renderPage($response, 'admin/article/edit.html', [
             'article' => $article,
             'authors' => $this->authorDropdown($authors, $article)
-        ]);
-    }
-
-    public function create(Request $request, Response $response, $args = [])
-    {
-        $article = new Article;
-
-        if ($request->isPost()){
-            $article->setName($request->getParam('name'));
-            $article->setSlug($request->getParam('slug'));
-            $article->setImage($request->getParam('image'));
-            $article->setBody($request->getParam('body'));
-            $article->setPublished(new \DateTime);
-
-  
-
-            $this->ci->get('db')->persist($article);
-            $this->ci->get('db')->flush();
-
-            return $response->withRedirect('/admin');
-        }
-
-        
-
-        return $this->renderPage($response, 'admin/create.html', [
-            'article' => $article
         ]);
     }
 

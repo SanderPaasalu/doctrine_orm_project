@@ -25,9 +25,9 @@ $app = AppFactory::create();
 
 // define page routes
 $app->get('/', '\App\Controller\DefaultController:homepage');
-$app->get('/admin', '\App\Controller\AdminController:view');
-$app->any('/admin/create', '\App\Controller\AdminController:create');
-$app->any('/admin/{id}', '\App\Controller\AdminController:edit');
+$app->get('/admin/article', '\App\Controller\ArticleAdminController:view');
+$app->any('/admin/article/create', '\App\Controller\ArticleAdminController:create');
+$app->any('/admin/article/{id}', '\App\Controller\ArticleAdminController:edit');
 $app->get('/article/{slug}', '\App\Controller\ArticleController:view');
 $app->get('/author/{id}', '\App\Controller\authorController:author');
 $app->get('/tags', '\App\Controller\TagController:view');

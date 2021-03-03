@@ -12,7 +12,7 @@
     <tbody>
     {{#articles}}
         <tr>
-            <td><a href="/admin/{{getId}}">{{getName}}</a></td>
+            <td><a href="/admin/article/{{getId}}">{{getName}}</a></td>
             <td>{{getPublished | date}}</td>
         </tr>
     {{/articles}}
@@ -20,5 +20,5 @@
 </table>
 
 <p>
-    <a href="/admin/create">Create a new article</a>
+    <a href="/admin/article/create">Create a new article</a>
 </p>
