@@ -1,27 +1,14 @@
-<p class="breadcrumbs"><a href="/admin/article">Admin</a> &raquo;
-<h1>Edit article</h1>
+<p class="breadcrumbs"><a href="/admin/tag">Admin</a> &raquo;
+<h1>Edit tag</h1>
 
-{{#article}}
+{{#tag}}
 <form method="post">
     <label for="name">Name</label>
     <input type="text" name="name" id="name" value="{{getName}}">
-
-    <label for="slug">Slug</label>
-    <input type="text" name="slug" id="slug" value="{{getSlug}}">
-
-    <label for="image">Image</label>
-    <input type="text" name="image" id="image" value="{{getImage}}">
-
-    <label for='author'>Author</label>
-    <select name="author" id="author">{{{authors}}}</select>
-
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{{getBody}}}</textarea>
-
     <button>Update</button>
 </form>
 
-<h2>Delete article</h2>
+<h2>Delete tag</h2>
 
 <p>
     If you want to remove this article, use the button below.
@@ -31,4 +18,4 @@
     <input type="hidden" name="action" value="delete">
     <button class="danger">Delete</button>
 </form>
-{{/article}}
+{{/tag}}

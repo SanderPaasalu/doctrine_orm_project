@@ -1,24 +1,21 @@
 {{%FILTERS}}
 
-<h1>Manage articles</h1>
+<h1>Manage tags</h1>
 
 <table>
     <thead>
         <tr>
             <th>Name</th>
-            <th>Published</th>
         </tr>
     </thead>
     <tbody>
-    {{#articles}}
+    {{#tag}}
         <tr>
-            <td><a href="/admin/article/{{getId}}">{{getName}}</a></td>
-            <td>{{getPublished | date}}</td>
+            <td><a href="/admin/tag/{{getId}}">{{getName}}</a></td>
         </tr>
-    {{/articles}}
+    {{/tag}}
     </tbody>
 </table>
-
 <p>
-    <a href="/admin/article/create">Create a new article</a>
+    <a href="/admin/tag/create">Create a new article</a>
 </p>
