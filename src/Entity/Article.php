@@ -26,17 +26,17 @@ class Article {
 	*/
 	private $slug;
 
-		/**
+	/**
 	* @Column(type="string")
 	*/
 	private $image;
 
-		/**
+	/**
 	* @Column(type="text")
 	*/
 	private $body;
 
-		/**
+	/**
 	* @Column(type="datetime")
 	*/
 	private $published;
@@ -46,7 +46,7 @@ class Article {
 	*/
 	private $author;
 
-		/**
+	/**
 	* @ManyToMany(targetEntity="Tag", inversedBy="articles", cascade={"persist"})
 	* @JoinTable(name="article_tags")
 	* @JoinColumn(referencedColumnName="id", nullable=false)
